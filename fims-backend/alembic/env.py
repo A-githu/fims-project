@@ -39,22 +39,8 @@ target_metadata = Base.metadata
 
 
 def upgrade_enum():
-    """Fonction pour mettre à jour l'enum userrole avec la nouvelle valeur"""
-    try:
-        from sqlalchemy import text
-        conn = context.get_bind()
-        # Vérifier si la valeur existe déjà
-        result = conn.execute(text("SELECT EXISTS (SELECT 1 FROM pg_enum WHERE enumtypid = 'userrole'::regtype AND enumlabel = 'unit_supervisor')"))
-        exists = result.scalar()
-        if not exists:
-            # Ajouter la nouvelle valeur à l'enum
-            conn.execute(text("ALTER TYPE userrole ADD VALUE 'unit_supervisor'"))
-            print("✅ Valeur 'unit_supervisor' ajoutée à l'enum userrole")
-        else:
-            print("ℹ️ La valeur 'unit_supervisor' existe déjà dans l'enum userrole")
-    except Exception as e:
-        print(f"⚠️ Erreur lors de la mise à jour de l'enum: {e}")
-        # L'erreur peut être ignorée si l'enum n'existe pas encore
+    """Désactivé pour la première migration"""
+    pass
 
 
 def run_migrations_offline() -> None:
