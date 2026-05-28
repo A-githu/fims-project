@@ -25,7 +25,13 @@ if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
 # URL de connexion synchrone hardcodée pour Alembic
-SYNC_DATABASE_URL = "postgresql://postgres:12345678@localhost:5433/fims_db"
+# URL de connexion - utilise la variable d'environnement en production
+SYNC_DATABASE_URL = os.getenv(
+    "DATABASE_URL",
+    "postgresql://fims_user:12345678@db:5432/fims_db"
+)
+if SYNC_DATABASE_URL.startswith("postgresql+asyncpg://"):
+    SYNC_DATABASE_URL = SYNC_DATABASE_URL.replace("postgresql+asyncpg://", "postgresql://", 1)
 config.set_main_option("sqlalchemy.url", SYNC_DATABASE_URL)
 
 # Métadonnées cibles pour l'autogenerate
