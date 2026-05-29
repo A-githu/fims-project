@@ -1,7 +1,8 @@
 import axios from 'axios'
 import toast from 'react-hot-toast'
 
-const API_URL = import.meta.env.VITE_API_URL || 'https://fims-project-production.up.railway.app'
+const API_URL = 'https://fims-project-production.up.railway.app'
+
 const api = axios.create({
     baseURL: API_URL,
     headers: {
